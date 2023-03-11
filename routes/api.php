@@ -26,3 +26,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [RegisterController::class, 'login']);
    
+
+Route::resource('rotas', App\Http\Controllers\API\RotasAPIController::class)
+    ->except(['create', 'edit']);
