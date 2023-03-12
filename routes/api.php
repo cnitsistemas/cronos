@@ -33,3 +33,6 @@ Route::resource('rotas', App\Http\Controllers\API\RotasAPIController::class)
 
 Route::resource('alunos', App\Http\Controllers\API\AlunosAPIController::class)
     ->except(['create', 'edit']);
+
+Route::resource('frequencias', App\Http\Controllers\API\FrequenciaAPIController::class)
+    ->except(['create', 'edit']);
