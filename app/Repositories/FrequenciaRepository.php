@@ -10,7 +10,8 @@ class FrequenciaRepository extends BaseRepository
     protected $fieldSearchable = [
         'data_chamada',
         'realizada',
-        'rota_id'
+        'rota_id',
+        'turno'
     ];
 
     public function getFieldsSearchable(): array

@@ -21,7 +21,12 @@ class Alunos extends Model
         'numero',
         'complemento',
         'cidade',
-        'estado'
+        'estado',
+        'turno_matutino',
+        'turno_vespertino',
+        'turno_noturno',
+        'hora_ida',
+        'hora_volta',
     ];
 
     protected $casts = [
@@ -37,7 +42,12 @@ class Alunos extends Model
         'numero' => 'string',
         'complemento' => 'string',
         'cidade' => 'string',
-        'estado' => 'string'
+        'estado' => 'string',
+        'turno_matutino' => 'integer',
+        'turno_vespertino' => 'integer',
+        'turno_noturno' => 'integer',
+        'hora_ida' => 'string',
+        'hora_volta' => 'string',
     ];
 
     public static array $rules = [

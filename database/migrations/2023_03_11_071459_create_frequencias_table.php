@@ -16,8 +16,9 @@ return new class extends Migration
         Schema::create('frequencias', function (Blueprint $table) {
             $table->id('id');
             $table->text('data_chamada');
+            $table->text('turno');
             $table->integer('realizada', false, true);
-            $table->integer('rota_id')->unsigned();
+            $table->unsignedBigInteger('rota_id');
             $table->timestamps();
             $table->foreign('rota_id')->references('id')->on('rotas');
         });

@@ -28,6 +28,11 @@ return new class extends Migration
             $table->text('complemento')->nullable();
             $table->text('cidade')->nullable();
             $table->text('estado')->nullable();
+            $table->integer('turno_matutino', false, true)->nullable();
+            $table->integer('turno_vespertino', false, true)->nullable();
+            $table->integer('turno_noturno', false, true)->nullable();
+            $table->text('hora_ida')->nullable();
+            $table->text('hora_volta')->nullable();
             $table->timestamps();
             $table->foreign('rota_id')->references('id')->on('rotas')->onDelete('restrict');
         });

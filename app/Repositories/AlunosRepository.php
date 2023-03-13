@@ -20,7 +20,12 @@ class AlunosRepository extends BaseRepository
         'numero',
         'complemento',
         'cidade',
-        'estado'
+        'estado',
+        'turno_matutino',
+        'turno_vespertino',
+        'turno_noturno',
+        'hora_ida',
+        'hora_volta',
     ];
 
     public function getFieldsSearchable(): array
