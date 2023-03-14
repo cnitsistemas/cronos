@@ -28,11 +28,7 @@ class AlunosAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $alunos = $this->alunosRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        $alunos = $this->alunosRepository->paginate(10);
 
         return $this->sendResponse($alunos->toArray(), 'Alunos retrieved successfully');
     }

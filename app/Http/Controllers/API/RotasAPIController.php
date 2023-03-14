@@ -28,11 +28,7 @@ class RotasAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $rotas = $this->rotasRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        $rotas = $this->rotasRepository->paginate(10);
 
         return $this->sendResponse($rotas->toArray(), 'Rotas retrieved successfully');
     }
