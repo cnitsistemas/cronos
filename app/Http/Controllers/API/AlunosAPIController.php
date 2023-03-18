@@ -30,7 +30,7 @@ class AlunosAPIController extends AppBaseController
     {
         $alunos = $this->alunosRepository->paginate(10);
 
-        return $this->sendResponse($alunos->toArray(), 'Alunos retrieved successfully');
+        return $this->sendResponse($alunos->toArray(), 'Alunos recuperados com sucesso');
     }
 
     /**
@@ -43,7 +43,7 @@ class AlunosAPIController extends AppBaseController
 
         $alunos = $this->alunosRepository->create($input);
 
-        return $this->sendResponse($alunos->toArray(), 'Alunos saved successfully');
+        return $this->sendResponse($alunos->toArray(), 'Aluno salvo com sucesso');
     }
 
     /**
@@ -59,7 +59,7 @@ class AlunosAPIController extends AppBaseController
             return $this->sendError('Alunos not found');
         }
 
-        return $this->sendResponse($alunos->toArray(), 'Alunos retrieved successfully');
+        return $this->sendResponse($alunos->toArray(), 'Aluno recuperado com sucesso');
     }
 
     /**
@@ -79,7 +79,7 @@ class AlunosAPIController extends AppBaseController
 
         $alunos = $this->alunosRepository->update($input, $id);
 
-        return $this->sendResponse($alunos->toArray(), 'Alunos updated successfully');
+        return $this->sendResponse($alunos->toArray(), 'Aluno atualizado com sucesso');
     }
 
     /**
@@ -99,6 +99,6 @@ class AlunosAPIController extends AppBaseController
 
         $alunos->delete();
 
-        return $this->sendSuccess('Alunos deleted successfully');
+        return $this->sendSuccess('Aluno excluído com sucesso');
     }
 }

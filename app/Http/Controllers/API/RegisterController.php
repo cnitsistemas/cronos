@@ -86,6 +86,7 @@ class RegisterController extends BaseController
         return response()->json([
             'result' => [
                 'user_name' => $user->name,
+                'user_email' => $user->email,
                 'access_token' => $tokenResult->accessToken,
                 'token_type' => 'Bearer',
                 'expires_at' => Carbon::parse(
