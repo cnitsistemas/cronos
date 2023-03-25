@@ -104,8 +104,10 @@ class RegisterController extends BaseController
      */
     public function logout(Request $request)
     {
-        $request->user()->token()->revoke();
+        $token = $request->user()->token();
+        $token->revoke();
         return response()->json([
+            'success' => true,
             'message' => 'Successfully logged out'
         ]);
     }

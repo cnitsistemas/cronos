@@ -23,16 +23,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
 Route::post('register', [RegisterController::class, 'register']);
+
 Route::post('login', [RegisterController::class, 'login']);
 
+Route::middleware('auth:api')->group(function () {
+    Route::post('logout', [RegisterController::class, 'logout']);
 
-Route::resource('rotas', App\Http\Controllers\API\RotasAPIController::class)
-    ->except(['create', 'edit']);
+    Route::resource('rotas', App\Http\Controllers\API\RotasAPIController::class);
 
+    Route::resource('alunos', App\Http\Controllers\API\AlunosAPIController::class);
 
-Route::resource('alunos', App\Http\Controllers\API\AlunosAPIController::class)
-    ->except(['create', 'edit']);
-
-Route::resource('frequencias', App\Http\Controllers\API\FrequenciaAPIController::class)
-    ->except(['create', 'edit']);
+    Route::resource('frequencias', App\Http\Controllers\API\FrequenciaAPIController::class);
+});

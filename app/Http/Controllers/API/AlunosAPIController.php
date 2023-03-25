@@ -28,7 +28,17 @@ class AlunosAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $alunos = $this->alunosRepository->paginate(10);
+        $keyword = $request->get('search');
+
+        if (!empty($keyword)) {
+            $alunos = Alunos::where('nome', 'LIKE', "$keyword%")
+                ->orWhere('endereco', 'LIKE', "$keyword%")
+                ->paginate(10)
+                ->orderBy('nome', 'asc')
+                ->get();
+        } else {
+            $alunos = $this->alunosRepository->paginate(10);
+        }
 
         return $this->sendResponse($alunos->toArray(), 'Alunos recuperados com sucesso');
     }
