@@ -59,5 +59,8 @@ class Alunos extends Model
         'rota_id' => 'required'
     ];
 
-    
+    public function route()
+    {
+        return $this->belongsTo(Rotas::class, 'rota_id');
+    }
 }
