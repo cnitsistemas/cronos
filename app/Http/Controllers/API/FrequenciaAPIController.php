@@ -9,6 +9,8 @@ use App\Repositories\FrequenciaRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use App\Repositories\AlunosRepository;
+use App\Repositories\FrequenciaAlunoRepository;
 
 /**
  * Class FrequenciaAPIController
@@ -16,10 +18,14 @@ use App\Http\Controllers\AppBaseController;
 class FrequenciaAPIController extends AppBaseController
 {
     private FrequenciaRepository $frequenciaRepository;
+    private AlunosRepository $alunosRepository;
+    private FrequenciaAlunoRepository $frequenciaAlunoRepository;
 
-    public function __construct(FrequenciaRepository $frequenciaRepo)
+    public function __construct(FrequenciaRepository $frequenciaRepo, AlunosRepository $alunosRepo, FrequenciaAlunoRepository $frequenciaAlunoRepo)
     {
         $this->frequenciaRepository = $frequenciaRepo;
+        $this->alunosRepository = $alunosRepo;
+        $this->frequenciaAlunoRepository = $frequenciaAlunoRepo;
     }
 
     /**
@@ -104,5 +110,60 @@ class FrequenciaAPIController extends AppBaseController
         $frequencia->delete();
 
         return $this->sendSuccess('Frequencia deleted successfully');
+    }
+
+    public function frequency($id)
+    {
+
+        $chamada = $this->frequenciaRepository->model()::findOrFail($id);
+
+        $presencas = $this->frequenciaAlunoRepository->model()::where('frequencia_id', $chamada->id)->get();
+
+        $alunos = $this->alunosRepository->model()::where('turma_id', $chamada->turma->id)->get();
+
+        $data['chamada'] = $chamada;
+        $data['alunos'] = $alunos;
+        $data['presencas'] = $presencas;
+
+        return $this->sendResponse($data, 'Frequencias retrieved successfully');
+    }
+
+    public function makeFrequency($id, Request $request)
+    {
+
+        $data = $request->all();
+
+        $alunos = $this->alunosRepository->model()::where('rota_id', $data['rota_id'][0])->get();
+
+        foreach ($alunos as $aluno) {
+
+            $chamada_aluno = $this->frequenciaAlunoRepository->model()::where(['aluno_id' => $aluno->id, 'frequencia_id' => $id])->first();
+
+            if (isset($chamada_aluno)) {
+                $chamada_aluno = $this->frequenciaAlunoRepository->model()::find($chamada_aluno->id);
+                $chamada_aluno->presenca = 0;
+                $chamada_aluno->save();
+            } else {
+                $this->frequenciaAlunoRepository->model()::create(['aluno_id' => $aluno->id, 'presenca' => 0, 'frequencia_id' => $id]);
+            }
+        }
+        if (isset($data['presenca'])) {
+            foreach ($data['presenca'] as $aluno => $presenca) {
+                $chamada_aluno = $this->frequenciaAlunoRepository->model()::where(['aluno_id' => $aluno, 'frequencia_id' => $id])->first();
+                if (isset($chamada_aluno)) {
+                    $chamada_aluno = $this->frequenciaAlunoRepository->model()::find($chamada_aluno->id);
+                    $chamada_aluno->presenca = 1;
+                    $chamada_aluno->save();
+                }
+            }
+        }
+
+        $chamada = $this->frequenciaRepository->model()::find($id);
+
+        $chamada->realizada = 1;
+
+        $chamada->save();
+
+        return $this->sendResponse($chamada->toArray(), 'Frequencia realizada com sucesso');
     }
 }
