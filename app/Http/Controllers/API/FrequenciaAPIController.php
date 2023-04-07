@@ -128,33 +128,32 @@ class FrequenciaAPIController extends AppBaseController
         return $this->sendResponse($data, 'Frequencias retrieved successfully');
     }
 
-    public function makeFrequency($id, Request $request)
+    public function make_frequency($id, Request $request)
     {
 
         $data = $request->all();
 
-        $alunos = $this->alunosRepository->model()::where('rota_id', $data['rota_id'][0])->get();
+        $chamada = $this->frequenciaRepository->model()::find($id);
+
+        $alunos = $this->alunosRepository->model()::where('rota_id', $chamada->rota_id)->get();
 
         foreach ($alunos as $aluno) {
 
             $chamada_aluno = $this->frequenciaAlunoRepository->model()::where(['aluno_id' => $aluno->id, 'frequencia_id' => $id])->first();
+            $presenca = 0;
+
+            foreach ($data as $item) {
+                if($item['aluno_id'] === $aluno->id){
+                    $presenca = $item['presenca'];
+                }
+            }
 
             if (isset($chamada_aluno)) {
                 $chamada_aluno = $this->frequenciaAlunoRepository->model()::find($chamada_aluno->id);
-                $chamada_aluno->presenca = 0;
+                $chamada_aluno->presenca = $presenca;
                 $chamada_aluno->save();
             } else {
-                $this->frequenciaAlunoRepository->model()::create(['aluno_id' => $aluno->id, 'presenca' => 0, 'frequencia_id' => $id]);
-            }
-        }
-        if (isset($data['presenca'])) {
-            foreach ($data['presenca'] as $aluno => $presenca) {
-                $chamada_aluno = $this->frequenciaAlunoRepository->model()::where(['aluno_id' => $aluno, 'frequencia_id' => $id])->first();
-                if (isset($chamada_aluno)) {
-                    $chamada_aluno = $this->frequenciaAlunoRepository->model()::find($chamada_aluno->id);
-                    $chamada_aluno->presenca = 1;
-                    $chamada_aluno->save();
-                }
+                $this->frequenciaAlunoRepository->model()::create(['aluno_id' => $aluno->id, 'presenca' => $presenca, 'frequencia_id' => $id]);
             }
         }
 

@@ -13,8 +13,8 @@ class Frequencia extends Model
         'realizada',
         'rota_id',
         'turno',
-        'horario_ida',
-        'horario_volta'
+        // 'horario_ida',
+        // 'horario_volta'
     ];
 
     protected $casts = [
@@ -22,8 +22,8 @@ class Frequencia extends Model
         'realizada' => 'integer',
         'rota_id' => 'integer',
         'turno' => 'string',
-        'horario_ida' => 'string',
-        'horario_volta' => 'string'
+        // 'horario_ida' => 'string',
+        // 'horario_volta' => 'string'
     ];
 
     public static array $rules = [
@@ -31,9 +31,13 @@ class Frequencia extends Model
         'realizada' => 'required',
         'rota_id' => 'required',
         'turno' =>'required',
-        'horario_ida' => 'required',
-        'horario_volta' =>'required'
+        // 'horario_ida' => 'required',
+        // 'horario_volta' =>'required'
     ];
 
+    public function route()
+    {
+        return $this->belongsTo(Rotas::class, 'rota_id');
+    }
     
 }

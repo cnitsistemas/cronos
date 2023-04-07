@@ -75,6 +75,7 @@ class RegisterController extends BaseController
             ], 401);
 
         $user = $request->user();
+        $permissions = $user->getPermissionsViaRoles();
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
 
@@ -92,7 +93,8 @@ class RegisterController extends BaseController
                 'expires_at' => Carbon::parse(
                     $tokenResult->token->expires_at
                 )->toDateTimeString(),
-                'success' => true
+                'success' => true,
+                'permissions' => $permissions
             ]
         ]);
     }

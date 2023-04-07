@@ -27,4 +27,8 @@ class FrequenciaAluno extends Model
     ];
 
     
+    public function chamada()
+    {
+        return $this->belongsTo(Frequencia::class, 'frequencia_id');
+    }
 }

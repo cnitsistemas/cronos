@@ -20,6 +20,10 @@ class AlunosAPIController extends AppBaseController
     public function __construct(AlunosRepository $alunosRepo)
     {
         $this->alunosRepository = $alunosRepo;
+        $this->middleware('permission:aluno-list|aluno-create|aluno-edit|aluno-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:aluno-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:aluno-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:aluno-delete', ['only' => ['destroy']]);
     }
 
     /**
