@@ -44,6 +44,12 @@ class RolesAPIController extends AppBaseController
         return $this->sendResponse($roles->toArray(), 'Papeis recuperados com sucesso');
     }
 
+    public function all()
+    {
+        $roles = Role::orderBy('name', 'ASC')->get();
+
+        return $this->sendResponse($roles, 'Papeis recuperados com sucesso');
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -79,23 +85,6 @@ class RolesAPIController extends AppBaseController
         $data['role_permissions'] = $rolePermissions;
 
         return $this->sendResponse($data, 'Papel recuperado com sucesso');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $role = Role::find($id);
-        $permission = Permission::get();
-        $rolePermissions = FacadesDB::table("role_has_permissions")->where("role_has_permissions.role_id", $id)
-            ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
-            ->all();
-
-        return view('roles.edit', compact('role', 'permission', 'rolePermissions'));
     }
 
     /**

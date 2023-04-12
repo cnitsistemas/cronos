@@ -86,6 +86,7 @@ class RegisterController extends BaseController
 
         return response()->json([
             'result' => [
+                'avatar' => $user->avatar,
                 'user_name' => $user->name,
                 'user_email' => $user->email,
                 'access_token' => $tokenResult->accessToken,

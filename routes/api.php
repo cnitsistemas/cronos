@@ -36,7 +36,9 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('roles', App\Http\Controllers\API\RolesAPIController::class);
     Route::resource('permissions', App\Http\Controllers\API\PermissionsAPIController::class);
     Route::get('permissions-all', [App\Http\Controllers\API\PermissionsAPIController::class, 'all']);
+    Route::get('roles-all', [App\Http\Controllers\API\RolesAPIController::class, 'all']);
     Route::resource('users', App\Http\Controllers\API\UserAPIController::class);
+    Route::post('user-role/{id}', [App\Http\Controllers\API\UserAPIController::class, 'apply_role_to_user']);
 });
 
 Route::resource('frequencias', App\Http\Controllers\API\FrequenciaAPIController::class);
