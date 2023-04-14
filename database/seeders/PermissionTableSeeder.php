@@ -24,15 +24,20 @@ class PermissionTableSeeder extends Seeder
             // 'aluno-create',
             // 'aluno-edit',
             // 'aluno-delete'
-            'frequency-list',
-            'frequency-create',
-            'frequency-edit',
-            'frequency-delete',
-            'frequency-read',
-            'user-list',
-            'user-create',
-            'user-edit',
-            'user-delete'
+            // 'frequency-list',
+            // 'frequency-create',
+            // 'frequency-edit',
+            // 'frequency-delete',
+            // 'frequency-read',
+            // 'user-list',
+            // 'user-create',
+            // 'user-edit',
+            // 'user-delete',
+            'app-access',
+            'app-admin',
+            'app-read',
+            'reports-list',
+            'reports-create',
          ];
        
          foreach ($permissions as $permission) {
