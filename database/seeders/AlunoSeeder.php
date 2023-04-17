@@ -23,7 +23,7 @@ class AlunoSeeder extends Seeder
                 'nome' => $faker->name,
                 'serie' => $faker->randomDigit(),
                 'ensino' => $faker->word(),
-                'turno' => $faker->word(),
+                'turno' => 'Manhã',
                 'nome_escola' => $faker->sentence(),
                 'rota_id' => '2',
                 'cep' => $faker->postcode(),
@@ -33,8 +33,8 @@ class AlunoSeeder extends Seeder
                 'complemento' => '',
                 'cidade' => $faker->city(),
                 'estado' => $faker->state(),
-                'hora_ida' => '2023-03-22T06:00:10.460Z',
-                'hora_volta' => '2023-03-22T12:00:10.464Z',
+                'hora_ida' => '06:00',
+                'hora_volta' => '12:00',
             ]);
         }
 
@@ -44,7 +44,7 @@ class AlunoSeeder extends Seeder
                 'nome' => $faker->name,
                 'serie' => $faker->randomDigit(),
                 'ensino' => $faker->word(),
-                'turno' => $faker->word(),
+                'turno' => 'Tarde',
                 'nome_escola' => $faker->sentence(),
                 'rota_id' => '1',
                 'cep' => $faker->postcode(),
@@ -54,8 +54,8 @@ class AlunoSeeder extends Seeder
                 'complemento' => '',
                 'cidade' => $faker->city(),
                 'estado' => $faker->state(),
-                'hora_ida' => '2023-03-22T13:00:10.460Z',
-                'hora_volta' => '2023-03-22T17:00:10.464Z',
+                'hora_ida' => '13:00',
+                'hora_volta' => '17:00',
             ]);
         }
     }

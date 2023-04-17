@@ -119,7 +119,7 @@ class FrequenciaAPIController extends AppBaseController
 
         $presencas = $this->frequenciaAlunoRepository->model()::where('frequencia_id', $chamada->id)->get();
 
-        $alunos = $this->alunosRepository->model()::where('turma_id', $chamada->turma->id)->get();
+        $alunos = $this->alunosRepository->model()::where('rota_id', $chamada->rota_id)->get();
 
         $data['chamada'] = $chamada;
         $data['alunos'] = $alunos;

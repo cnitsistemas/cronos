@@ -42,6 +42,7 @@ Route::middleware('auth:api')->group(function () {
 });
 
 Route::resource('frequencias', App\Http\Controllers\API\FrequenciaAPIController::class);
+Route::get('frequencia-detalhe/{id}', [App\Http\Controllers\API\FrequenciaAPIController::class, 'frequency']);
 Route::put('frequencia/{id}', [App\Http\Controllers\API\FrequenciaAPIController::class, 'make_frequency']);
 
 Route::resource('frequencia-alunos', App\Http\Controllers\API\FrequenciaAlunoAPIController::class)
