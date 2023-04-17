@@ -13,8 +13,8 @@ class Frequencia extends Model
         'realizada',
         'rota_id',
         'turno',
-        // 'horario_ida',
-        // 'horario_volta'
+        'sentido',
+        'horario'
     ];
 
     protected $casts = [
@@ -22,8 +22,8 @@ class Frequencia extends Model
         'realizada' => 'integer',
         'rota_id' => 'integer',
         'turno' => 'string',
-        // 'horario_ida' => 'string',
-        // 'horario_volta' => 'string'
+        'sentido' => 'string',
+        'horario' => 'string',
     ];
 
     public static array $rules = [
@@ -31,8 +31,6 @@ class Frequencia extends Model
         'realizada' => 'required',
         'rota_id' => 'required',
         'turno' =>'required',
-        // 'horario_ida' => 'required',
-        // 'horario_volta' =>'required'
     ];
 
     public function route()
