@@ -11,7 +11,9 @@ class FrequenciaRepository extends BaseRepository
         'data_chamada',
         'realizada',
         'rota_id',
-        'turno'
+        'turno',
+        'sentido',
+        'horario'
     ];
 
     public function getFieldsSearchable(): array

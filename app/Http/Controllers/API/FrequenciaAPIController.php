@@ -119,7 +119,15 @@ class FrequenciaAPIController extends AppBaseController
 
         $presencas = $this->frequenciaAlunoRepository->model()::where('frequencia_id', $chamada->id)->get();
 
-        $alunos = $this->alunosRepository->model()::where('rota_id', $chamada->rota_id)->get();
+        if ($chamada->sentido === 'Ida') {
+            $alunos = $this->alunosRepository->model()::where('rota_id', $chamada->rota_id)
+                ->where('hora_ida', $chamada->horario)
+                ->get();
+        } else {
+            $alunos = $this->alunosRepository->model()::where('rota_id', $chamada->rota_id)
+                ->where('hora_volta', $chamada->horario)
+                ->get();
+        }
 
         $data['chamada'] = $chamada;
         $data['alunos'] = $alunos;
@@ -143,7 +151,7 @@ class FrequenciaAPIController extends AppBaseController
             $presenca = 0;
 
             foreach ($data as $item) {
-                if($item['aluno_id'] === $aluno->id){
+                if ($item['aluno_id'] === $aluno->id) {
                     $presenca = $item['presenca'];
                 }
             }
