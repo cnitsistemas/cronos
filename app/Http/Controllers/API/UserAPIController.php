@@ -151,7 +151,7 @@ class UserAPIController extends AppBaseController
         return $this->sendSuccess('Usuário excluído com sucesso');
     }
 
-    public function apply_role_to_user(Request $request, $id)
+    public function applyRoleToUser(Request $request, $id)
     {
         /** @var User $user */
         $user = $this->userRepository->find($id);

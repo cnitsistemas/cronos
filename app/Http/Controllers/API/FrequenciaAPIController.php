@@ -51,7 +51,21 @@ class FrequenciaAPIController extends AppBaseController
     {
         $input = $request->all();
 
-        $frequencia = $this->frequenciaRepository->create($input);
+        if ($input['sentido'] === 'Ida') {
+            $alunos = $this->alunosRepository->model()::where('rota_id', $input['rota_id'])
+                ->where('hora_ida', $input['horario'])
+                ->get();
+        } else {
+            $alunos = $this->alunosRepository->model()::where('rota_id', $input['rota_id'])
+                ->where('hora_volta', $input['horario'])
+                ->get();
+        }
+
+        if (sizeof($alunos) == 0) {
+            return $this->sendError('A rota selecionada não possui alunos cadastrados.');
+        } else {
+            $frequencia = $this->frequenciaRepository->create($input);
+        }
 
         return $this->sendResponse($frequencia->toArray(), 'Frequencia saved successfully');
     }
@@ -136,17 +150,14 @@ class FrequenciaAPIController extends AppBaseController
         return $this->sendResponse($data, 'Frequencias retrieved successfully');
     }
 
-    public function make_frequency($id, Request $request)
+    public function makeFrequency($id, Request $request)
     {
 
         $data = $request->all();
-
         $chamada = $this->frequenciaRepository->model()::find($id);
-
         $alunos = $this->alunosRepository->model()::where('rota_id', $chamada->rota_id)->get();
 
         foreach ($alunos as $aluno) {
-
             $chamada_aluno = $this->frequenciaAlunoRepository->model()::where(['aluno_id' => $aluno->id, 'frequencia_id' => $id])->first();
             $presenca = 0;
 

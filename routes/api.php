@@ -38,12 +38,12 @@ Route::middleware('auth:api')->group(function () {
     Route::get('permissions-all', [App\Http\Controllers\API\PermissionsAPIController::class, 'all']);
     Route::get('roles-all', [App\Http\Controllers\API\RolesAPIController::class, 'all']);
     Route::resource('users', App\Http\Controllers\API\UserAPIController::class);
-    Route::post('user-role/{id}', [App\Http\Controllers\API\UserAPIController::class, 'apply_role_to_user']);
+    Route::post('user-role/{id}', [App\Http\Controllers\API\UserAPIController::class, 'applyRoleToUser']);
 });
 
 Route::resource('frequencias', App\Http\Controllers\API\FrequenciaAPIController::class);
 Route::get('frequencia-detalhe/{id}', [App\Http\Controllers\API\FrequenciaAPIController::class, 'frequency']);
-Route::put('frequencia/{id}', [App\Http\Controllers\API\FrequenciaAPIController::class, 'make_frequency']);
+Route::put('frequencia/{id}', [App\Http\Controllers\API\FrequenciaAPIController::class, 'makeFrequency']);
 
 Route::resource('frequencia-alunos', App\Http\Controllers\API\FrequenciaAlunoAPIController::class)
     ->except(['create', 'edit']);
