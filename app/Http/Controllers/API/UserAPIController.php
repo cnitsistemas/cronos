@@ -65,8 +65,8 @@ class UserAPIController extends AppBaseController
         if($request->hasFile('avatar')){
             $avatar = $request->file('avatar');
             $filename = time() . '.' . $avatar->getClientOriginalExtension();
-            Image::make($avatar)->save(public_path('users/' . $filename));
-
+            //Image::make($avatar)->save(public_path('users/' . $filename));
+            $avatar->storeAs('public/users/', $filename);
             $input["avatar"] = $filename;
         }
 
