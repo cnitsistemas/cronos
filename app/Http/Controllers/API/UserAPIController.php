@@ -62,11 +62,11 @@ class UserAPIController extends AppBaseController
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
 
-        if($request->hasFile('avatar')){
+        if ($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
             $filename = time() . '.' . $avatar->getClientOriginalExtension();
             //Image::make($avatar)->save(public_path('users/' . $filename));
-            $avatar->storeAs('public/users/', $filename);
+            $avatar->storeAs('users/', $filename);
             $input["avatar"] = $filename;
         }
 
@@ -86,7 +86,7 @@ class UserAPIController extends AppBaseController
     {
         $user = User::find($id);
         $user->getRoleNames();
-        
+
         if (empty($user)) {
             return $this->sendError('Usuario não encontrado');
         }
@@ -120,6 +120,13 @@ class UserAPIController extends AppBaseController
 
         if (empty($user)) {
             return $this->sendError('Usuário não encontrado');
+        }
+
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $filename = time() . '.' . $avatar->getClientOriginalExtension();
+            $avatar->storeAs('users/', $filename);
+            $input["avatar"] = $filename;
         }
 
         $user->update($input);
@@ -161,7 +168,7 @@ class UserAPIController extends AppBaseController
         }
 
         $roles = $request->input('roles');
-        
+
 
         $user->syncRoles($roles);
 
