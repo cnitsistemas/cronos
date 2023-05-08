@@ -11,7 +11,10 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB as FacadesDB;
-use Intervention\Image\ImageManagerStatic as Image;
+// use Intervention\Image\ImageManagerStatic as Image;
+// use Kreait\Firebase\Auth as FirebaseAuth;
+// use Kreait\Firebase\Auth\SignInResult\SignInResult;
+// use Kreait\Firebase\Exception\FirebaseException;
 
 class UserAPIController extends AppBaseController
 {
@@ -62,14 +65,6 @@ class UserAPIController extends AppBaseController
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
 
-        if ($request->hasFile('avatar')) {
-            $avatar = $request->file('avatar');
-            $filename = time() . '.' . $avatar->getClientOriginalExtension();
-            Image::make($avatar)->save(public_path('users/' . $filename));
-            //$avatar->storeAs('users/', $filename);
-            $input["avatar"] = $filename;
-        }
-
         $user = $this->userRepository->create($input);
         $user->assignRole($request->input('roles'));
 
@@ -105,7 +100,7 @@ class UserAPIController extends AppBaseController
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'same:confirm-password',
+            'password' => 'required|same:c_password',
             'roles' => 'required'
         ]);
 
@@ -122,20 +117,13 @@ class UserAPIController extends AppBaseController
             return $this->sendError('Usuário não encontrado');
         }
 
-        if ($request->hasFile('avatar')) {
-            $avatar = $request->file('avatar');
-            $filename = time() . '.' . $avatar->getClientOriginalExtension();
-            $avatar->storeAs('users/', $filename);
-            $input["avatar"] = $filename;
-        }
-
         $user->update($input);
 
         FacadesDB::table('model_has_roles')->where('model_id', $id)->delete();
 
         $user->assignRole($request->input('roles'));
 
-        return $this->sendResponse($user->toArray(), 'Usuário atualizado com sucesso');
+        return $this->sendResponse($input['password'], 'Usuário atualizado com sucesso');
     }
 
     /**
