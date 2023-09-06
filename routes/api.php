@@ -47,3 +47,10 @@ Route::put('frequencia/{id}', [App\Http\Controllers\API\FrequenciaAPIController:
 
 Route::resource('frequencia-alunos', App\Http\Controllers\API\FrequenciaAlunoAPIController::class)
     ->except(['create', 'edit']);
+
+
+Route::resource('veiculos', App\Http\Controllers\API\VeiculosAPIController::class)
+    ->except(['create', 'edit']);
+
+Route::resource('condutores', App\Http\Controllers\API\CondutoresAPIController::class)
+    ->except(['create', 'edit']);

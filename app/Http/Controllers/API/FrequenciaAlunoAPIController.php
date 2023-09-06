@@ -34,7 +34,7 @@ class FrequenciaAlunoAPIController extends AppBaseController
             $request->get('limit')
         );
 
-        return $this->sendResponse($frequenciaAlunos->toArray(), 'Frequencia Alunos retrieved successfully');
+        return $this->sendResponse($frequenciaAlunos->toArray(), 'Frequências de alunos recuperadas com sucesso');
     }
 
     /**
@@ -47,7 +47,7 @@ class FrequenciaAlunoAPIController extends AppBaseController
 
         $frequenciaAluno = $this->frequenciaAlunoRepository->create($input);
 
-        return $this->sendResponse($frequenciaAluno->toArray(), 'Frequencia Aluno saved successfully');
+        return $this->sendResponse($frequenciaAluno->toArray(), 'Frequências de alunos salva com sucesso');
     }
 
     /**
@@ -60,10 +60,10 @@ class FrequenciaAlunoAPIController extends AppBaseController
         $frequenciaAluno = $this->frequenciaAlunoRepository->find($id);
 
         if (empty($frequenciaAluno)) {
-            return $this->sendError('Frequencia Aluno not found');
+            return $this->sendError('Frequência de Aluno não encontrada');
         }
 
-        return $this->sendResponse($frequenciaAluno->toArray(), 'Frequencia Aluno retrieved successfully');
+        return $this->sendResponse($frequenciaAluno->toArray(), 'Frequência de alunos recuperada com sucesso');
     }
 
     /**
@@ -78,12 +78,12 @@ class FrequenciaAlunoAPIController extends AppBaseController
         $frequenciaAluno = $this->frequenciaAlunoRepository->find($id);
 
         if (empty($frequenciaAluno)) {
-            return $this->sendError('Frequencia Aluno not found');
+            return $this->sendError('Frequência de Aluno não encontrada');
         }
 
         $frequenciaAluno = $this->frequenciaAlunoRepository->update($input, $id);
 
-        return $this->sendResponse($frequenciaAluno->toArray(), 'FrequenciaAluno updated successfully');
+        return $this->sendResponse($frequenciaAluno->toArray(), 'Frequência de alunos atualizada com sucesso');
     }
 
     /**
@@ -98,11 +98,11 @@ class FrequenciaAlunoAPIController extends AppBaseController
         $frequenciaAluno = $this->frequenciaAlunoRepository->find($id);
 
         if (empty($frequenciaAluno)) {
-            return $this->sendError('Frequencia Aluno not found');
+            return $this->sendError('Frequência de Aluno não encontrada');
         }
 
         $frequenciaAluno->delete();
 
-        return $this->sendSuccess('Frequencia Aluno deleted successfully');
+        return $this->sendSuccess('Frequência de alunos deletada com sucesso');
     }
 }
