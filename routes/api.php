@@ -29,6 +29,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('logout', [App\Http\Controllers\API\RegisterController::class, 'logout']);
     Route::get('dashboard', [App\Http\Controllers\API\DashboardController::class, 'index']);
     Route::resource('rotas', App\Http\Controllers\API\RotasAPIController::class);
+    Route::get('rota-all', [App\Http\Controllers\API\RotasAPIController::class, 'all']);
     Route::resource('alunos', App\Http\Controllers\API\AlunosAPIController::class);
 
 
