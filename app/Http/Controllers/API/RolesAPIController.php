@@ -108,7 +108,6 @@ class RolesAPIController extends AppBaseController
         $role->syncPermissions($request->input('permission'));
 
         return $this->sendResponse($role->toArray(), 'Papel atualizado com sucesso');
-
     }
     /**
      * Remove the specified resource from storage.
