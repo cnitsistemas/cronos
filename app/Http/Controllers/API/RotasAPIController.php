@@ -28,9 +28,28 @@ class RotasAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $rotas = $this->rotasRepository->all();
+        $keyword = $request->get('search');
 
-        return $this->sendResponse($rotas->toArray(), 'Rotas retrieved successfully');
+        if (!empty($keyword)) {
+            $data = Rotas::where('turno_matutino', 'LIKE', "$keyword%")
+                ->orWhere('turno_vespertino', 'LIKE', "$keyword%")
+                ->orWhere('turno_noturno', 'LIKE', "$keyword%")
+                ->paginate(10)
+                ->orderBy('nome', 'asc')
+                ->get();
+        } else {
+            $data = $this->rotasRepository->paginate(10);
+        }
+
+
+        return $this->sendResponse($data->toArray(), 'Rotas retrieved successfully');
+    }
+
+    public function all()
+    {
+        $rotas = Rotas::orderBy('nome', 'ASC')->get();
+
+        return $this->sendResponse($rotas, 'Rotas recuperadas com sucesso');
     }
 
     /**

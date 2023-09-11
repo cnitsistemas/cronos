@@ -25,7 +25,12 @@ class Rotas extends Model
         'longitude_inicio',
         'latitude_termino',
         'longitude_termino',
-        'tempo'
+        'tempo',
+        'tipo',
+        'escolas',
+        'quantidade_alunos',
+        'quantidade_dia_mes',
+        'quantidade_km'
     ];
 
     protected $casts = [
@@ -45,12 +50,15 @@ class Rotas extends Model
         'longitude_inicio' => 'string',
         'latitude_termino' => 'string',
         'longitude_termino' => 'string',
+        'tempo' => 'string',
+        'escolas' => 'string',
+        'quantidade_alunos' => 'string',
+        'quantidade_dia_mes' => 'string',
+        'quantidade_km' => 'string',
         'tempo' => 'string'
     ];
 
     public static array $rules = [
         'nome' => 'required',
     ];
-
-
 }
