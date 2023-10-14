@@ -46,12 +46,14 @@ Route::resource('frequencias', App\Http\Controllers\API\FrequenciaAPIController:
 Route::get('frequencia-detalhe/{id}', [App\Http\Controllers\API\FrequenciaAPIController::class, 'frequency']);
 Route::put('frequencia/{id}', [App\Http\Controllers\API\FrequenciaAPIController::class, 'makeFrequency']);
 
-Route::resource('frequencia-alunos', App\Http\Controllers\API\FrequenciaAlunoAPIController::class)
-    ->except(['create', 'edit']);
+Route::get('relatorios', [App\Http\Controllers\API\ReportsController::class, 'getRouterReports']);
+
+Route::resource('frequencia-alunos', App\Http\Controllers\API\FrequenciaAlunoAPIController::class);
+
+Route::resource('veiculos', App\Http\Controllers\API\VeiculosAPIController::class);
+
+Route::resource('condutores', App\Http\Controllers\API\CondutoresAPIController::class);
 
 
-Route::resource('veiculos', App\Http\Controllers\API\VeiculosAPIController::class)
-    ->except(['create', 'edit']);
-
-Route::resource('condutores', App\Http\Controllers\API\CondutoresAPIController::class)
+Route::resource('rota-veiculos', App\Http\Controllers\API\RotaVeiculosAPIController::class)
     ->except(['create', 'edit']);
