@@ -7,6 +7,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Models\Rotas;
 use App\Repositories\RotasRepository;
 use Illuminate\Http\JsonResponse;
+use PDF;
 
 class ReportsController extends AppBaseController
 {
@@ -23,6 +24,8 @@ class ReportsController extends AppBaseController
 
         $data = Rotas::where('nome', 'like', '%' . $descricao . '%')->get();
 
-        return $this->sendResponse($data, 'Report retrieved successfully');
+        $pdf = PDF::loadView('relatorio.pdf', compact('data'));
+
+        return $pdf->stream(date('Y-m-d H:i:s') . '.pdf');
     }
 }

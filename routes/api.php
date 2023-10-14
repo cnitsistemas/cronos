@@ -57,3 +57,5 @@ Route::resource('condutores', App\Http\Controllers\API\CondutoresAPIController::
 
 Route::resource('rota-veiculos', App\Http\Controllers\API\RotaVeiculosAPIController::class)
     ->except(['create', 'edit']);
+
+Route::get('/imprimir/relatorio', [App\Http\Controllers\API\ReportsController::class, 'getRouterReports'])->name('imprimir');
