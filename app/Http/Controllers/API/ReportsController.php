@@ -24,8 +24,6 @@ class ReportsController extends AppBaseController
 
         $data = Rotas::where('nome', 'like', '%' . $descricao . '%')->get();
 
-        $pdf = PDF::loadView('relatorio.pdf', compact('data'));
-
-        return $pdf->stream(date('Y-m-d H:i:s') . '.pdf');
+        return $this->sendResponse($data, 'Report retrieved successfully');
     }
 }
