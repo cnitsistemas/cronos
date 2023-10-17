@@ -22,11 +22,9 @@ class ReportsController extends AppBaseController
     {
         $descricao = json_decode(stripslashes($request->get('descricao')));
         $escola = json_decode(stripslashes($request->get('escola')));
-        // $tipo = json_decode(stripslashes($request->get('tipo')));
 
         $data = Rotas::where('nome', 'like', '%' . $descricao . '%')
-            ->orWhere('escolas', 'like', '%' . $escola)
-            // ->where('tipo', 'like', '%' . $tipo)
+            ->where('escolas', 'like', '%' . $escola . '%')
             ->get();
 
         return $this->sendResponse($data, 'Report retrieved successfully');
