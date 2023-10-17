@@ -21,11 +21,11 @@ class ReportsController extends AppBaseController
     public function getRouterReports(Request $request): JsonResponse
     {
         $descricao = json_decode(stripslashes($request->get('descricao')));
-        // $escola = json_decode(stripslashes($request->get('escola')));
+        $escola = json_decode(stripslashes($request->get('escola')));
         // $tipo = json_decode(stripslashes($request->get('tipo')));
 
         $data = Rotas::where('nome', 'like', '%' . $descricao . '%')
-            // ->where('escolas', 'like', '%' . $escola)
+            ->orWhere('escolas', 'like', '%' . $escola)
             // ->where('tipo', 'like', '%' . $tipo)
             ->get();
 
