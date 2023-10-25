@@ -22,9 +22,18 @@ class ReportsController extends AppBaseController
     {
         $descricao = json_decode(stripslashes($request->get('descricao')));
         $escola = json_decode(stripslashes($request->get('escola')));
+        $tipo = json_decode(stripslashes($request->get('tipo')));
+        $matutino = json_decode(stripslashes($request->get('matutino')));
+        $vespertino = json_decode(stripslashes($request->get('vespertino')));
+        $noturno = json_decode(stripslashes($request->get('noturno')));
 
         $data = Rotas::where('nome', 'like', '%' . $descricao . '%')
             ->where('escolas', 'like', '%' . $escola . '%')
+            ->where('tipo', 'like', '%' . $tipo . '%')
+            ->where('turno_matutino', $matutino)
+            ->where('turno_vespertino', $vespertino)
+            ->where('turno_noturno', $noturno)
+
             ->get();
 
         return $this->sendResponse($data, 'Report retrieved successfully');
