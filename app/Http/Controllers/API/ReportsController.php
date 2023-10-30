@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Alunos;
+use App\Models\Frequencia;
+use App\Models\FrequenciaAluno;
 use App\Models\Rotas;
 use App\Repositories\RotasRepository;
 use Illuminate\Http\JsonResponse;
@@ -53,6 +55,29 @@ class ReportsController extends AppBaseController
             ->where('turno', 'like', '%' . $turno . '%')
             ->with(['route'])
             ->get();
+
+        return $this->sendResponse($data, 'Report retrieved successfully');
+    }
+
+    public function getFrequencyReports(Request $request): JsonResponse
+    {
+        $from_data_chamada = $request->get('from_data_chamada');
+        $to_data_chamada = $request->get('to_data_chamada');
+        $rota = $request->get('rota');
+        $turno = $request->get('turno');
+
+        $data = Frequencia::where('rota_id', 'like', '%' . $rota . '%')
+            ->where('turno', 'like', '%' . $turno . '%')
+            ->where('data_chamada', 'like', [$from_data_chamada, $to_data_chamada])
+            ->with(['route'])
+            ->get();
+
+        if (!empty($data)) {
+            foreach ($data as $item) {
+                $chamada_alunos = FrequenciaAluno::where('frequencia_id', $item->id)->get();;
+                $item['frequencias'] = $chamada_alunos;
+            }
+        }
 
         return $this->sendResponse($data, 'Report retrieved successfully');
     }
