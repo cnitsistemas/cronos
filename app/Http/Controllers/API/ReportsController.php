@@ -51,6 +51,7 @@ class ReportsController extends AppBaseController
             ->where('nome_escola', 'like', '%' . $escola . '%')
             ->where('rota_id', $rota)
             ->where('turno', 'like', '%' . $turno . '%')
+            ->with(['route'])
             ->get();
 
         return $this->sendResponse($data, 'Report retrieved successfully');
