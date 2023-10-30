@@ -26,9 +26,14 @@ class FrequenciaAluno extends Model
         'presenca' => 'required'
     ];
 
-    
+
     public function chamada()
     {
         return $this->belongsTo(Frequencia::class, 'frequencia_id');
+    }
+
+    public function aluno()
+    {
+        return $this->belongsTo(Alunos::class, 'aluno_id');
     }
 }

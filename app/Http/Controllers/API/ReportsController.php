@@ -74,7 +74,9 @@ class ReportsController extends AppBaseController
 
         if (!empty($data)) {
             foreach ($data as $item) {
-                $chamada_alunos = FrequenciaAluno::where('frequencia_id', $item->id)->get();;
+                $chamada_alunos = FrequenciaAluno::where('frequencia_id', $item->id)->with(['aluno'])
+                    ->get();
+
                 $item['frequencias'] = $chamada_alunos;
             }
         }
