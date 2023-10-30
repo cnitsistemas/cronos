@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Alunos;
 use App\Models\Rotas;
 use App\Repositories\RotasRepository;
 use Illuminate\Http\JsonResponse;
@@ -34,6 +35,22 @@ class ReportsController extends AppBaseController
             ->where('turno_vespertino', $vespertino)
             ->where('turno_noturno', $noturno)
 
+            ->get();
+
+        return $this->sendResponse($data, 'Report retrieved successfully');
+    }
+
+    public function getStudentsReports(Request $request): JsonResponse
+    {
+        $nome = $request->get('nome');
+        $escola = $request->get('escola');
+        $rota = $request->get('rota');
+        $turno = $request->get('turno');
+
+        $data = Alunos::where('nome', 'like', '%' . $nome . '%')
+            ->where('nome_escola', 'like', '%' . $escola . '%')
+            ->where('rota_id', $rota)
+            ->where('turno', 'like', '%' . $turno . '%')
             ->get();
 
         return $this->sendResponse($data, 'Report retrieved successfully');

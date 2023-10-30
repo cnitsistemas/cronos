@@ -59,3 +59,4 @@ Route::resource('rota-veiculos', App\Http\Controllers\API\RotaVeiculosAPIControl
     ->except(['create', 'edit']);
 
 Route::get('/relatorio-rota', [App\Http\Controllers\API\ReportsController::class, 'getRouterReports']);
+Route::get('/relatorio-alunos', [App\Http\Controllers\API\ReportsController::class, 'getStudentsReports']);
