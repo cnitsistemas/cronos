@@ -66,9 +66,9 @@ class ReportsController extends AppBaseController
         $rota = $request->get('rota');
         $turno = $request->get('turno');
 
-        $data = Frequencia::where('rota_id', 'like', '%' . $rota . '%')
+        $data = Frequencia::whereBetween('data_chamada', [$from_data_chamada, $to_data_chamada])
+            ->where('rota_id', $rota)
             ->where('turno', 'like', '%' . $turno . '%')
-            ->where('data_chamada', 'like', [$from_data_chamada, $to_data_chamada])
             ->with(['route'])
             ->get();
 
