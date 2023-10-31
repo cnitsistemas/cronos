@@ -14,7 +14,8 @@ class Frequencia extends Model
         'rota_id',
         'turno',
         'sentido',
-        'horario'
+        'horario',
+        'observacao'
     ];
 
     protected $casts = [
@@ -24,18 +25,18 @@ class Frequencia extends Model
         'turno' => 'string',
         'sentido' => 'string',
         'horario' => 'string',
+        'observacao' => 'string',
     ];
 
     public static array $rules = [
         'data_chamada' => 'required',
         'realizada' => 'required',
         'rota_id' => 'required',
-        'turno' =>'required',
+        'turno' => 'required',
     ];
 
     public function route()
     {
         return $this->belongsTo(Rotas::class, 'rota_id');
     }
-    
 }
