@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('frequencias', function (Blueprint $table) {
+        Schema::table('frequencias', function (Blueprint $table) {
             $table->text('observacao')->nullable();
         });
     }
