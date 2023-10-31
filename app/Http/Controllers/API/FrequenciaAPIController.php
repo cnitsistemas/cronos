@@ -179,7 +179,6 @@ class FrequenciaAPIController extends AppBaseController
         $chamada = $this->frequenciaRepository->model()::find($id);
 
         $chamada->realizada = 1;
-        $chamada->observacao =  $data['observacao'];
 
         $chamada->save();
 
