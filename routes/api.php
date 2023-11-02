@@ -61,3 +61,13 @@ Route::resource('rota-veiculos', App\Http\Controllers\API\RotaVeiculosAPIControl
 Route::get('/relatorio-rota', [App\Http\Controllers\API\ReportsController::class, 'getRouterReports']);
 Route::get('/relatorio-alunos', [App\Http\Controllers\API\ReportsController::class, 'getStudentsReports']);
 Route::get('/relatorio-frequencias', [App\Http\Controllers\API\ReportsController::class, 'getFrequencyReports']);
+
+
+Route::resource('paradas', App\Http\Controllers\API\ParadasAPIController::class)
+    ->except(['create', 'edit']);
+
+Route::resource('veiculo-rotas', App\Http\Controllers\API\VeiculoRotaAPIController::class)
+    ->except(['create', 'edit']);
+
+Route::resource('veiculo-condutores', App\Http\Controllers\API\VeiculoCondutoresAPIController::class)
+    ->except(['create', 'edit']);
