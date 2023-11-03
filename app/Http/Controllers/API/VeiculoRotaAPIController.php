@@ -28,11 +28,9 @@ class VeiculoRotaAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $veiculoRotas = $this->veiculoRotaRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        $id = $request->get('id');
+
+        $veiculoRotas = $this->veiculoRotaRepository->model()::where('veiculo_id', "$id%");
 
         return $this->sendResponse($veiculoRotas->toArray(), 'Veiculo Rotas retrieved successfully');
     }
