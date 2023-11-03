@@ -67,3 +67,5 @@ Route::resource('paradas', App\Http\Controllers\API\ParadasAPIController::class)
 Route::resource('veiculo-rotas', App\Http\Controllers\API\VeiculoRotaAPIController::class);
 
 Route::resource('veiculo-condutores', App\Http\Controllers\API\VeiculoCondutoresAPIController::class);
+
+Route::get('veiculos-all', [App\Http\Controllers\API\VeiculosAPIController::class, 'all']);
