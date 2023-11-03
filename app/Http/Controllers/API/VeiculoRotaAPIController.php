@@ -30,9 +30,12 @@ class VeiculoRotaAPIController extends AppBaseController
     {
         $id = $request->get('id');
 
-        $veiculoRotas = $this->veiculoRotaRepository->model()::where('veiculo_id', "$id%");
+        $veiculoRotas = VeiculoRota::where('veiculo_id', $id)
+            ->with(['route'])
+            ->with(['vehicle'])
+            ->get();
 
-        return $this->sendResponse($veiculoRotas->toArray(), 'Veiculo Rotas retrieved successfully');
+        return $this->sendResponse($veiculoRotas, 'Veiculo Rotas retrieved successfully');
     }
 
     /**

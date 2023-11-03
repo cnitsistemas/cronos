@@ -25,5 +25,12 @@ class VeiculoRota extends Model
         'veiculo_id' => 'required'
     ];
 
-    
+    public function route()
+    {
+        return $this->belongsTo(Rotas::class, 'rota_id');
+    }
+    public function vehicle()
+    {
+        return $this->belongsTo(Veiculos::class, 'veiculo_id');
+    }
 }
