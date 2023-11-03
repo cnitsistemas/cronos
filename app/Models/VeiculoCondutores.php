@@ -25,5 +25,12 @@ class VeiculoCondutores extends Model
         'condutor_id' => 'required'
     ];
 
-    
+    public function condutor()
+    {
+        return $this->belongsTo(Condutores::class, 'condutor_id');
+    }
+    public function vehicle()
+    {
+        return $this->belongsTo(Veiculos::class, 'veiculo_id');
+    }
 }

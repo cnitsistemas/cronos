@@ -28,11 +28,12 @@ class VeiculoCondutoresAPIController extends AppBaseController
      */
     public function index(Request $request): JsonResponse
     {
-        $veiculoCondutores = $this->veiculoCondutoresRepository->all(
-            $request->except(['skip', 'limit']),
-            $request->get('skip'),
-            $request->get('limit')
-        );
+        $id = $request->get('id');
+
+        $veiculoCondutores = VeiculoCondutores::where('condutor_id', $id)
+            ->with(['condutor'])
+            ->with(['vehicle'])
+            ->get();
 
         return $this->sendResponse($veiculoCondutores->toArray(), 'Veiculo Condutores retrieved successfully');
     }
