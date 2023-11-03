@@ -39,7 +39,7 @@ class VeiculosAPIController extends AppBaseController
 
     public function all()
     {
-        $veiculos = Veiculos::orderBy('nome', 'ASC')->get();
+        $veiculos = Veiculos::orderBy('descricao', 'ASC')->get();
 
         return $this->sendResponse($veiculos, 'Veiculos recuperados com sucesso');
     }
