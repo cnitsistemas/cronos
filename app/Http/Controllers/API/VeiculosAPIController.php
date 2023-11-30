@@ -37,6 +37,13 @@ class VeiculosAPIController extends AppBaseController
         return $this->sendResponse($veiculos->toArray(), 'Veiculos retrieved successfully');
     }
 
+    public function all()
+    {
+        $veiculos = Veiculos::orderBy('descricao', 'ASC')->get();
+
+        return $this->sendResponse($veiculos, 'Veiculos recuperados com sucesso');
+    }
+
     /**
      * Store a newly created Veiculos in storage.
      * POST /veiculos
